@@ -25,7 +25,7 @@ function onInput(e) {
     if (countryName === '') {
         return;
     }
-
+console.log(onInput);
 API.fetchCountries(countryName)
 .then(countryCards => {
     const numberOfCountries = countryCards.length;
