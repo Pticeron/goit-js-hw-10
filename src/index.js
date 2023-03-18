@@ -26,9 +26,9 @@ function onInput(e) {
         return;
     }
 
-API.fetchCountries(cantryName)
-.then(cantryCards => {
-    const numberOfCountries = cantryCards.length;
+API.fetchCountries(countryName)
+.then(countryCards => {
+    const numberOfCountries = countryCards.length;
 
     if (numberOfCountries > 10) Notify.info("Too many matches found. Please enter a more specific name.");
 
@@ -40,4 +40,24 @@ API.fetchCountries(cantryName)
     }
 })
 .catch(onFetchError)
+}
+
+function renderCountryInfo(card) {
+    const markup = countryInfoTpl(card);
+    refs.countryInfo.innerHTML = markup;
+}
+
+function renderCountryList(card) {
+    const markup = countryListTpl(card);
+    refs.countryList.innerHTML = markup;
+}
+
+function clearCountryList() {
+    refs.countryList.innerHTML = "";
+    refs.countryInfo.innerHTML = "";
+}
+
+function onFetchError(error) {
+    console.log('error :>> ', error);
+    Notify.failure("Oops, there is no country with that name")
 }
