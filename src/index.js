@@ -1,6 +1,6 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import notifier from './service/notifier';
 import countryInfoTpl from './templates/country-info.hbs';
 import countryListTpl from './templates/country-list.hbs';
 import API from "./fetchCountries.js";
@@ -30,7 +30,7 @@ API.fetchCountries(countryName)
 .then(countryCards => {
     const numberOfCountries = countryCards.length;
 
-    if (numberOfCountries > 10) Notify.info("Too many matches found. Please enter a more specific name.");
+    if (numberOfCountries > 10) notifier.info("Too many matches found. Please enter a more specific name.");
 
     else if (numberOfCountries >= 2 && numberOfCountries <= 10) {
         renderCountryList(countryCards);
@@ -59,5 +59,5 @@ function clearCountryList() {
 
 function onFetchError(error) {
     console.log('error :>> ', error);
-    Notify.failure("Oops, there is no country with that name")
+    notifier.error("Oops, there is no country with that name")
 }
